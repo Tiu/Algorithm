@@ -11,8 +11,8 @@
 int rotateCompare(char *src, char *des);
 int main()
 {
-	string src = "AABCD";
-	string des = "CDAA";
+	char src[] = "AABCD";
+	char des[] = "CDAA";
 
 	if(rotateCompare(src,des))
 		printf("true");
@@ -25,9 +25,19 @@ int main()
 int rotateCompare(char *src, char *des)
 {
 	char * pc = src;
+	char * p;
 	while(*des != '\0')
 	{
-		while(*src != *des)	src++;
+		while(*src++ != *des)	p=src;
+		while(*src == *des) 
+		{
+			pc++;
+			des++;
+			if(*pc == '\0') pc = src;
+			if(*des == '\0') return 1;
+			if(*pc == *p) return 0;
+		}
+
 	}
 	
 } 
