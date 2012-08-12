@@ -8,36 +8,39 @@
 #include <stdlib.h>
 #include <string.h>
 
-int rotateCompare(char *src, char *des);
+#define TRUE 1
+#define FALSE 0
+
+int rotate(char *src, char *des);
 int main()
 {
 	char src[] = "AABCD";
-	char des[] = "CDAA";
+	char des[] = "ACB";
 
-	if(rotateCompare(src,des))
-		printf("true");
-	else
-		printf("false");
-	
+	if(rotate(src,des) == TRUE)
+	{
+		printf("true\n");
+	}else
+	{
+		printf("false\n");
+	}
+
 	return 0;
 }
 
-int rotateCompare(char *src, char *des)
+int rotate(char *src, char *des)
 {
-	char * pc = src;
-	char * p;
-	while(*des != '\0')
+	int len = strlen(src);
+	for(int i = 0; i < len - 1; i++)
 	{
-		while(*src++ != *des)	p=src;
-		while(*src == *des) 
+		char tempchar = src[0];
+		for(int j = 0;j < len - 1; j++)
+			src[j] = src[j + 1];
+		src[len-1] = tempchar;
+		if(strstr(src,des) == 0)
 		{
-			pc++;
-			des++;
-			if(*pc == '\0') pc = src;
-			if(*des == '\0') return 1;
-			if(*pc == *p) return 0;
+			return FALSE;
 		}
-
 	}
-	
-} 
+	return TRUE;
+}
