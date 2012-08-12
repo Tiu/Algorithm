@@ -10,12 +10,13 @@
 
 #define TRUE 1
 #define FALSE 0
+#define SPACE 1
 
 int rotate(char *src, char *des);
 int main()
 {
 	char src[] = "AABCD";
-	char des[] = "ACB";
+	char des[] = "DA";
 
 	if(rotate(src,des) == TRUE)
 	{
@@ -30,6 +31,29 @@ int main()
 
 int rotate(char *src, char *des)
 {
+#if SPACE
+	int len = strlen(src);
+
+	char *p = (char *)malloc(len*2*sizeof(char)+1);
+	for(int i =0; i < len ; i++)
+	{
+		p[i] = src[i];
+	}
+
+	for(int j = len; j < len*2; j++)
+	{
+		p[j] = src[j-len];
+	}
+	p[len*2] = '\0';
+	printf("%s\n",p);
+
+	if(strstr(p,des) == 0)
+	{
+		return FALSE;
+	}
+	return TRUE;
+
+#else
 	int len = strlen(src);
 	for(int i = 0; i < len - 1; i++)
 	{
@@ -43,4 +67,6 @@ int rotate(char *src, char *des)
 		}
 	}
 	return TRUE;
+
+#endif
 }
